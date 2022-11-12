@@ -16,6 +16,9 @@ export default createStore({
     SET_USERS(state, users) {
       state.users = users
     },
+    CREATE_USER( state,user){
+      state.users.unshift(user)
+    },
     SET_USER(state, user) {
       state.user = user
     },
@@ -29,6 +32,20 @@ export default createStore({
     }
   },
   actions: {
+    async createUser({ commit },obj) {
+      try {
+        const response=await axios.post(`https://gorest.co.in/public/v2/users`,obj,
+        {
+          headers: {
+            'authorization':'Bearer edd87e7b3e90b9586dc33973743e69bf175f539b150f4322602cbbe90bb56351'
+          }
+        })
+          commit('CREATE_USER', response.data)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    },
     async getUsers({ commit }) {
       try {
         const response = await axios.get('https://gorest.co.in/public/v2/users', {
@@ -103,12 +120,6 @@ export default createStore({
     },
     async createPost({ commit },{id,obj}) {
       try {
-        // await axios({
-        //   method: 'PUT',
-        //   headers: { 'authorization':'Bearer edd87e7b3e90b9586dc33973743e69bf175f539b150f4322602cbbe90bb56351' },
-        //   data: obj,
-        //   url: `https://gorest.co.in/public/v2/users/${id}`,
-        // })
         const response=await axios.post(`https://gorest.co.in/public/v2/users/${id}/posts`, 
         {...obj},
         {

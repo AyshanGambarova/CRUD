@@ -1,19 +1,19 @@
 <template>
-<v-container class="bg-surface-variant">
+<v-container>
+  <CreateUser />
   <UserList />
   </v-container>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-
-// Components
+import CreateUser from '../components/CreateUser.vue';
 import UserList from '../components/UserList.vue';
 
 export default defineComponent({
   name: 'HomeView',
-
   components: {
+    CreateUser,
     UserList,
   },
 });
