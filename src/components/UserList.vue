@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Users</h1>
+    <SearchUser/>
     <v-table fixed-header height="300px">
       <thead>
         <tr>
@@ -10,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="user in getUsers" :key="user.id">
+        <tr v-for="(user) in getUsers" :key="user.id">
           <td>{{ user.id }}</td>
           <td>{{ user.name }}</td>
           <td>
@@ -27,6 +28,13 @@
         </tr>
       </tbody>
     </v-table>
+    <div class="text-center">
+      <v-pagination
+        v-model="page"
+        :length="getPaginationOptions.pages"
+        :total-visible="7"
+      ></v-pagination>
+    </div>
     <v-row justify="center">
       <v-dialog v-model="dialog" persistent max-width="600px">
         <v-card>
@@ -77,12 +85,11 @@
   </div>
 </template>
 <script setup>
-import { onMounted, computed, ref } from "vue";
+import { onMounted, computed, ref, watch } from "vue";
 import { useStore } from "vuex";
+import SearchUser from './SearchUser.vue'
 const store = useStore();
-const getUsers = computed(() => {
-  return store.getters.getUsers;
-});
+const page = ref(1);
 const dialog = ref(false);
 const dialog2 = ref(false);
 const deletingUserId = ref(null);
@@ -92,10 +99,27 @@ const obj = ref({
   email: "",
   status: "active",
 });
+const getPaginationOptions = computed(() => {
+  return store.getters.getPaginationOptions;
+});
+
+const getUsers = computed(() => {
+  return store.getters.getUsers;
+});
+
 onMounted(() => {
   store.dispatch("getUsers");
 });
 
+watch(page, () => {
+  let pageNumber = { page: page.value };
+  store.dispatch("getUsers", pageNumber);
+});
+
+function getNumber() {
+  console.log("page");
+  console.log(page.value);
+}
 function deletingUser(userId) {
   dialog2.value = true;
   deletingUserId.value = userId;

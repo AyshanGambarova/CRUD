@@ -2,9 +2,8 @@
   <div>
     <v-container>
       <div>
-        <h1>Create User</h1>
         <v-row>
-          <v-col cols="4">
+          <v-col cols="3">
             <v-text-field
               v-model="obj.name"
               label="Full Name"
@@ -12,7 +11,7 @@
             >
             </v-text-field>
           </v-col>
-          <v-col cols="4">
+          <v-col cols="3">
             <v-text-field
               v-model="obj.email"
               label="E-mail"
@@ -20,18 +19,18 @@
             >
             </v-text-field>
           </v-col>
-          <v-col cols="4">
+          <v-col cols="3">
             <v-select v-model="obj.gender" :items="items" label="Gender" required></v-select>
           </v-col>
-          <v-col cols="12">
+          <v-col cols="3">
             <v-btn
               class="ma-2"
               outlined
               color="indigo"
               block
-              @click="createUser()"
+              @click='searchUser'
             >
-              Create</v-btn
+              Search</v-btn
             >
           </v-col>
         </v-row>
@@ -50,11 +49,11 @@ const obj = ref({
   email: "",
   status: "active",
 });
-const items = ref(["male", "female"]);
+const items = ref(["male","female"]);
 const store = useStore();
 const route = useRoute();
-function createUser() {
-  store.dispatch("createUser", obj.value);
+function searchUser() {
+  store.dispatch("getUsers", obj.value);
   //   const obj = ref({
   //   title: "",
   //   body: "",
