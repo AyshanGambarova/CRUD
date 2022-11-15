@@ -21,19 +21,11 @@
     </v-container>
   </div>
 </template>
-
-<script setup>
-import { onMounted, computed } from "vue";
-import { useStore } from "vuex";
-import { useRoute } from "vue-router";
-const store = useStore();
-const getUser = computed(() => {
-  return store.getters.getUser;
-});
-
-const route = useRoute();
-onMounted(() => {
-  let userId = route.params.id;
-  store.dispatch("getUser", userId);
-});
+<script>
+import script from './main.js'
+export default script
 </script>
+
+<style scoped>
+@import 'style.css'
+</style>

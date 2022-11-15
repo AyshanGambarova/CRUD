@@ -2,7 +2,8 @@
   <div>
     <h1>Users</h1>
     <SearchUser/>
-    <v-table fixed-header height="300px">
+    <div v-if="getUsers.length">
+      <v-table fixed-header height="300px">
       <thead>
         <tr>
           <th>ID</th>
@@ -35,6 +36,8 @@
         :total-visible="7"
       ></v-pagination>
     </div>
+    </div>
+    <div v-else>There isn't any user.</div>
     <v-row justify="center">
       <v-dialog v-model="dialog" persistent max-width="600px">
         <v-card>
@@ -84,66 +87,11 @@
     </v-row>
   </div>
 </template>
-<script setup>
-import { onMounted, computed, ref, watch } from "vue";
-import { useStore } from "vuex";
-import SearchUser from './SearchUser.vue'
-const store = useStore();
-const page = ref(1);
-const dialog = ref(false);
-const dialog2 = ref(false);
-const deletingUserId = ref(null);
-const editingUserId = ref(null);
-const obj = ref({
-  name: "",
-  email: "",
-  status: "active",
-});
-const getPaginationOptions = computed(() => {
-  return store.getters.getPaginationOptions;
-});
-
-const getUsers = computed(() => {
-  return store.getters.getUsers;
-});
-
-onMounted(() => {
-  store.dispatch("getUsers");
-});
-
-watch(page, () => {
-  let pageNumber = { page: page.value };
-  store.dispatch("getUsers", pageNumber);
-});
-
-function getNumber() {
-  console.log("page");
-  console.log(page.value);
-}
-function deletingUser(userId) {
-  dialog2.value = true;
-  deletingUserId.value = userId;
-}
-function deleteUser() {
-  store.dispatch("deleteUser", deletingUserId.value).then(() => {
-    store.dispatch("getUsers");
-    dialog2.value = false;
-  });
-}
-function editingUser(user) {
-  dialog.value = true;
-  editingUserId.value = user.id;
-  obj.value = { ...user };
-}
-function editUser() {
-  store
-    .dispatch("editUser", {
-      id: editingUserId.value,
-      obj: this.obj,
-    })
-    .then(() => {
-      store.dispatch("getUsers");
-      dialog.value = false;
-    });
-}
+<script>
+import script from './main.js'
+export default script
 </script>
+
+<style scoped>
+@import 'style.css'
+</style>

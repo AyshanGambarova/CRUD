@@ -2,22 +2,22 @@
   <div>
   <User/>
   <CreatePost/>
-  <Post/>
+  <PostsList/>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import User from '../components/User.vue';
-import Post from '../components/PostList.vue';
-import CreatePost from '../components/CreatePost.vue';
+import User from '../components/User/index.vue';
+import CreatePost from '../components/CreatePost/index.vue';
+import PostsList from '../components/PostsList/index.vue';
 
 export default defineComponent({
   name: 'HomeView',
   components: {
     User,
-    Post,
-    CreatePost
+    CreatePost,
+    PostsList
   },
 });
 </script>

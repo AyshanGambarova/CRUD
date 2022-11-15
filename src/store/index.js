@@ -77,19 +77,7 @@ export default createStore({
         console.log(error);
       }
     },
-    async deleteUser({ commit }, id) {
-      try {
-        await axios.delete(`https://gorest.co.in/public/v2/users/${id}`, {
-          headers: {
-            Authorization:
-              "Bearer edd87e7b3e90b9586dc33973743e69bf175f539b150f4322602cbbe90bb56351",
-          },
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    async editUser({ commit }, { id, obj }) {
+    async editUser({ commit }, { userId, obj }) {
       try {
         // await axios({
         //   method: 'PUT',
@@ -98,7 +86,7 @@ export default createStore({
         //   url: `https://gorest.co.in/public/v2/users/${id}`,
         // })
         await axios.put(
-          `https://gorest.co.in/public/v2/users/${id}`,
+          `https://gorest.co.in/public/v2/users/${userId}`,
           { ...obj },
           {
             headers: {
@@ -111,10 +99,10 @@ export default createStore({
         console.log(error);
       }
     },
-    async getUser({ commit }, id) {
+    async getUser({ commit }, userId) {
       try {
         const response = await axios.get(
-          `https://gorest.co.in/public/v2/users/${id}`,
+          `https://gorest.co.in/public/v2/users/${userId}`,
           {
             headers: {
               Authorization:
@@ -127,26 +115,32 @@ export default createStore({
         console.log(error);
       }
     },
-    async getUserPosts({ commit }, id) {
+    async getUserPosts({ commit }, {userId,query}) {
       try {
         const response = await axios.get(
-          `https://gorest.co.in/public/v2/users/${id}/posts`,
+          `https://gorest.co.in/public/v2/users/${userId}/posts`,
           {
             headers: {
               Authorization:
                 "Bearer edd87e7b3e90b9586dc33973743e69bf175f539b150f4322602cbbe90bb56351",
             },
+             params: query
           }
         );
+        const pages = response.headers["x-pagination-pages"];
+        const paginationOptions = {
+          pages,
+        };
+        commit("SET_P_O", paginationOptions);
         commit("SET_USER_POSTS", response.data);
       } catch (error) {
         console.log(error);
       }
     },
-    async createPost({ commit }, { id, obj }) {
+    async createPost({ commit }, { userId, obj }) {
       try {
         const response = await axios.post(
-          `https://gorest.co.in/public/v2/users/${id}/posts`,
+          `https://gorest.co.in/public/v2/users/${userId}/posts`,
           { ...obj },
           {
             headers: {
@@ -160,22 +154,7 @@ export default createStore({
         console.log(error);
       }
     },
-    async deletePost({ commit }, { postId, userId }) {
-      try {
-        await axios.delete(
-          `https://gorest.co.in/public/v2/users/${userId}/posts/${postId}`,
-          {
-            headers: {
-              Authorization:
-                "Bearer edd87e7b3e90b9586dc33973743e69bf175f539b150f4322602cbbe90bb56351",
-            },
-          }
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    async editPost({ commit }, { userId, postId, obj }) {
+    async editPost({ commit }, { postId, obj }) {
       try {
         await axios({
           method: "PUT",

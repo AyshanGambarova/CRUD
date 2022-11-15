@@ -1,7 +1,8 @@
 <template>
   <div>
-    <v-container class="bg-surface-variant">
+    <v-container>
       <h1>Posts</h1>
+      <SearchPost/>
       <div v-if="getUserPosts.length">
         <v-table fixed-header height="300px">
           <thead>
@@ -30,6 +31,13 @@
             </tr>
           </tbody>
         </v-table>
+        <div class="text-center">
+          <v-pagination
+            v-model="page"
+            :length="getPaginationOptions.pages"
+            :total-visible="7"
+          ></v-pagination>
+        </div>
       </div>
       <div v-else>There isn't any post.</div>
       <v-dialog v-model="dialog" persistent max-width="600px">
@@ -84,58 +92,12 @@
     </v-container>
   </div>
 </template>
-
-<script setup>
-import { onMounted, computed, ref } from "vue";
-import { useStore } from "vuex";
-import { useRoute } from "vue-router";
-import axios from 'axios'
-const route = useRoute();
-const store = useStore();
-const dialog = ref(false);
-const dialog2 = ref(false);
-const deletingPostId = ref(null);
-const editingPostId = ref(null);
-const obj = ref({
-  title: "",
-  body: "",
-});
-let userId = route.params.id;
-const getUserPosts = computed(() => {
-  return store.getters.getUserPosts;
-});
-onMounted(() => {
-  let userId = route.params.id;
-  store.dispatch("getUserPosts", userId);
-});
-function deletingPost(postId) {
-  dialog2.value = true;
-  deletingPostId.value = postId;
-}
-async function deletePost() {
-  await axios.delete(`https://gorest.co.in/public/v2/posts/${deletingPostId.value}`, {
-          headers: {
-            'Authorization':'Bearer edd87e7b3e90b9586dc33973743e69bf175f539b150f4322602cbbe90bb56351'
-          }
-        })
-        .then(() => {
-      dialog2.value = false;
-    })
-}
-function editingPost(post) {
-  dialog.value = true;
-  editingPostId.value = post.id;
-  obj.value = { ...post };
-}
-function editPost() {
-  store
-    .dispatch("editPost", {
-      postId: editingPostId.value,
-      obj: this.obj,
-    })
-    .then(() => {
-      store.dispatch("getUserPosts",userId);
-      dialog.value = false;
-    });
-}
+<script>
+import script from './main.js'
+import SearchPost from "../SearchPost/index.vue";
+export default script
 </script>
+
+<style scoped>
+@import 'style.css'
+</style>
