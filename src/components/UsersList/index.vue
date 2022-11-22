@@ -1,41 +1,41 @@
 <template>
   <div>
     <h1>Users</h1>
-    <SearchUser/>
+    <SearchUser />
     <div v-if="getUsers.length">
       <v-table fixed-header height="300px">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Settings</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(user) in getUsers" :key="user.id">
-          <td>{{ user.id }}</td>
-          <td>{{ user.name }}</td>
-          <td>
-            <router-link :to="`/users/${user.id}`">
-              <v-btn size="small" color="primary"> View </v-btn>
-            </router-link>
-            <v-btn size="small" color="success" @click="editingUser(user)">
-              Edit
-            </v-btn>
-            <v-btn size="small" color="error" @click="deletingUser(user.id)">
-              Delete
-            </v-btn>
-          </td>
-        </tr>
-      </tbody>
-    </v-table>
-    <div class="text-center">
-      <v-pagination
-        v-model="page"
-        :length="getPaginationOptions.pages"
-        :total-visible="7"
-      ></v-pagination>
-    </div>
+        <thead>
+          <tr>
+            <th class="text-center">ID</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Settings</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="user in getUsers" :key="user.id">
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>
+              <router-link :to="`/users/${user.id}`">
+                <v-btn size="small" color="primary"> View </v-btn>
+              </router-link>
+              <v-btn size="small" color="success" @click="editingUser(user)">
+                Edit
+              </v-btn>
+              <v-btn size="small" color="error" @click="deletingUser(user.id)">
+                Delete
+              </v-btn>
+            </td>
+          </tr>
+        </tbody>
+      </v-table>
+      <div class="text-center">
+        <v-pagination
+          v-model="page"
+          :length="getPaginationOptions.pages"
+          :total-visible="7"
+        ></v-pagination>
+      </div>
     </div>
     <div v-else>There isn't any user.</div>
     <v-row justify="center">
@@ -88,10 +88,10 @@
   </div>
 </template>
 <script>
-import script from './main.js'
-export default script
+import script from "./main.js";
+export default script;
 </script>
 
 <style scoped>
-@import 'style.css'
+@import "style.css";
 </style>

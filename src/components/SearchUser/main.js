@@ -1,3 +1,4 @@
+import { FETCH_USERS } from "@/store/modules/user/constants";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
@@ -15,25 +16,12 @@ export default {
     const store = useStore();
     const route = useRoute();
 
-    //Form validation
-    let valid = ref(true);
-    let nameRules = ref([(v) => !!v || "Full name is required"]);
-    let emailRules = ref([
-      (v) => !!v || "E-mail is required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-    ]);
-
     // #endregion
 
     // #region Methods
     function searchUser() {
-      const { valid } = this.$refs.form.validate();
-      if (valid) {
-        alert("Form is valid");
-        store.dispatch("getUsers", obj.value);
-      } else {
-        alert("Form is invalid");
-      }
+      // store.dispatch("getUsers", obj.value);
+      store.dispatch("user/" + FETCH_USERS, obj.value);
       obj.value = {
         title: "",
         body: "",
@@ -44,9 +32,6 @@ export default {
 
     return {
       obj,
-      valid,
-      nameRules,
-      emailRules,
       items,
       searchUser,
     };

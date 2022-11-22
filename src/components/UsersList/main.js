@@ -4,8 +4,14 @@ import axios from "axios";
 // Components
 import SearchUser from "@/components/SearchUser/index.vue";
 
+import {
+  EDIT_USER,
+  FETCH_USERS,
+  GET_USERS,
+} from "@/store/modules/user/constants";
+
 export default {
-  components: {SearchUser},
+  components: { SearchUser },
   setup() {
     // #region States
     const store = useStore();
@@ -41,7 +47,7 @@ export default {
         )
         .then(() => {
           dialog2.value = false;
-          store.dispatch("getUsers");
+          fetchUsers();
         });
     }
     function editingUser(user) {
@@ -51,49 +57,53 @@ export default {
     }
     function editUser() {
       store
-        .dispatch("editUser", {
+        .dispatch("user/" + EDIT_USER, {
           userId: editingUserId.value,
-          obj: this.obj,
+          obj: obj.value,
         })
         .then(() => {
-          store.dispatch("getUsers");
+          fetchUsers();
           dialog.value = false;
         });
+    }
+
+    function fetchUsers(query) {
+      store.dispatch("user/" + FETCH_USERS, query);
     }
 
     // #endregion
 
     // #region Hooks
     const getPaginationOptions = computed(() => {
-      return store.getters.getPaginationOptions;
+      return store.getters["pagination/getPaginationOptions"];
     });
 
     const getUsers = computed(() => {
-      return store.getters.getUsers;
+      return store.getters["user/" + GET_USERS];
     });
 
     onMounted(() => {
-      store.dispatch("getUsers");
+      fetchUsers();
     });
 
     watch(page, () => {
-      let pageNumber = { page: page.value };
-      store.dispatch("getUsers", pageNumber);
+      let query = { page: page.value };
+      fetchUsers(query);
     });
 
     // #endregion
 
-    return{
-        getUsers,
-        page,
-        dialog,
-        dialog2,
-        obj,
-        getPaginationOptions,
-        editingUser,
-        editUser,
-        deletingUser,
-        deleteUser
-    }
+    return {
+      getUsers,
+      page,
+      dialog,
+      dialog2,
+      obj,
+      getPaginationOptions,
+      editingUser,
+      editUser,
+      deletingUser,
+      deleteUser,
+    };
   },
 };

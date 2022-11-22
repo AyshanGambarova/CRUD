@@ -1,0 +1,5 @@
+export const FETCH_POSTS = 'FETCH_POSTS'
+export const SET_POSTS = 'SET_POSTS'
+export const GET_POSTS = 'GET_POSTS'
+export const CREATE_POST = 'CREATE_POST'
+export const EDIT_POST = 'EDIT_POST'

@@ -1,3 +1,4 @@
+import { FETCH_POSTS } from "@/store/modules/post/constants";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
@@ -17,7 +18,7 @@ export default {
 
           // #region Methods
           function searchPost() {
-            store.dispatch("getUserPosts", { userId: userId, query: obj.value });
+            store.dispatch("post/"+FETCH_POSTS, { userId: userId, query: obj.value });
             obj.value = {
               title: "",
               body: "",

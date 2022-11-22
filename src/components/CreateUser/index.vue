@@ -3,7 +3,7 @@
     <v-container>
       <div>
         <h1>Create User</h1>
-        <v-form ref="form" v-model="valid">
+        <v-form ref="form" v-model="valid" lazy-validation>
           <v-row>
             <v-col cols="4">
               <v-text-field

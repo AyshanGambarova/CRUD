@@ -2,14 +2,14 @@
   <div>
     <v-container>
       <h1>Posts</h1>
-      <SearchPost/>
+      <SearchPost />
       <div v-if="getUserPosts.length">
         <v-table fixed-header height="300px">
           <thead>
             <tr>
-              <th>Title</th>
-              <th>Subject</th>
-              <th>Settings</th>
+              <th class="text-center">Title</th>
+              <th class="text-center">Subject</th>
+              <th class="text-center">Settings</th>
             </tr>
           </thead>
           <tbody>
@@ -93,11 +93,10 @@
   </div>
 </template>
 <script>
-import script from './main.js'
-import SearchPost from "../SearchPost/index.vue";
-export default script
+import script from "./main.js";
+export default script;
 </script>
 
 <style scoped>
-@import 'style.css'
+@import "style.css";
 </style>

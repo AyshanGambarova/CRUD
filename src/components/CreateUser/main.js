@@ -1,5 +1,6 @@
 import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
+import {CREATE_USER} from '@/store/modules/user/constants'
 
 export default defineComponent({
   name: 'CreateUser',
@@ -22,17 +23,20 @@ export default defineComponent({
     // #endregion
 
     // #region Methods
-    function createUser() {
-      const { valid } = this.$refs.form.validate()
+   async function createUser() {
+      const { valid } = await this.$refs.form.validate()
       if (valid) {
-        store.dispatch("createUser", obj.value);
+        // store.dispatch("createUser", obj.value);
+        store.dispatch('user/' + CREATE_USER, obj.value);
         alert('Form is valid')
       } else {
         alert('Form is invalid')
       }
       obj.value = {
-        title: "",
-        body: "",
+        name: "",
+        gender: "",
+        email: "",
+        status: "active",
       };
       
     }

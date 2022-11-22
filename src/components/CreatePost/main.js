@@ -1,3 +1,4 @@
+import { CREATE_POST } from "@/store/modules/post/constants";
 import { defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
@@ -24,14 +25,15 @@ export default defineComponent({
 
     // #region Methods
 
-    function createPost() {
-      const { valid } = this.$refs.form.validate();
+   async function createPost() {
+      const { valid } = await this.$refs.form.validate();
       if (valid) {
-        store.dispatch("createPost", {
-          userId: userId,
-          obj: obj.value,
-        });
-        alert("Form is valid");
+        // store.dispatch("createPost", {
+        //   userId: userId,
+        //   obj: obj.value,
+        // });
+        store.dispatch('post/' + CREATE_POST, {userId:userId, obj:obj.value});
+        alert("Post created");
       } else {
         alert("Form is invalid");
       }
