@@ -28,7 +28,7 @@ export default defineComponent({
       if (valid) {
         // store.dispatch("createUser", obj.value);
         store.dispatch('user/' + CREATE_USER, obj.value);
-        alert('Form is valid')
+        alert('User created')
       } else {
         alert('Form is invalid')
       }
@@ -44,13 +44,15 @@ export default defineComponent({
 
     // #endregion
 
+
     return {
       obj,
       valid,
       nameRules,
       emailRules,
       items,
-      createUser,
+      createUser
     };
   },
+  
 });

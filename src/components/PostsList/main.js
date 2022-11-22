@@ -18,6 +18,7 @@ export default {
     const route = useRoute();
     const store = useStore();
     const page = ref(1);
+    let userId = route.params.id;
     const dialog = ref(false);
     const dialog2 = ref(false);
     const deletingPostId = ref(null);
@@ -62,7 +63,6 @@ export default {
           obj: this.obj,
         })
         .then(() => {
-          let userId = route.params.id;
           fetchUserPosts(userId);
           dialog.value = false;
         });
@@ -81,7 +81,6 @@ export default {
       return store.getters["post/" + GET_POSTS];
     });
     onMounted(() => {
-      let userId = route.params.id;
       fetchUserPosts(userId);
       // store.dispatch("getUserPosts", {
       //   userId: userId

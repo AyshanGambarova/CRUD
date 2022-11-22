@@ -8,6 +8,7 @@
               <v-text-field
                 v-model="obj.name"
                 label="Full Name"
+                 v-touppercase
               >
               </v-text-field>
             </v-col>
@@ -15,6 +16,7 @@
               <v-text-field
                 v-model="obj.email"
                 label="E-mail"
+                v-tolowercase
               >
               </v-text-field>
             </v-col>

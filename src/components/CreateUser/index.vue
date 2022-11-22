@@ -12,6 +12,7 @@
                 label="Full Name"
                 required
                 validate-on="blur"
+                v-tocapitalize
               >
               </v-text-field>
             </v-col>
@@ -22,6 +23,7 @@
                 label="E-mail"
                 validate-on="blur"
                 required
+                 v-tolowercase
               >
               </v-text-field>
             </v-col>

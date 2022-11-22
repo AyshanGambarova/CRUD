@@ -8,6 +8,7 @@ export default {
     // #region States
     const store = useStore();
     const route = useRoute();
+    let userId = route.params.id;
 
     // #endregion
 
@@ -17,7 +18,6 @@ export default {
     });
 
     onMounted(() => {
-      let userId = route.params.id;
       // store.dispatch("getUser", userId);
       store.dispatch('user/' + FETCH_USER, userId);
     });
