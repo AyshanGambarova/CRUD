@@ -18,7 +18,6 @@ export default {
     });
 
     onMounted(() => {
-      // store.dispatch("getUser", userId);
       store.dispatch('user/' + FETCH_USER, userId);
     });
 

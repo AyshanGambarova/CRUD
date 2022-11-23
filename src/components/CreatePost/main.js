@@ -28,10 +28,6 @@ export default defineComponent({
    async function createPost() {
       const { valid } = await this.$refs.form.validate();
       if (valid) {
-        // store.dispatch("createPost", {
-        //   userId: userId,
-        //   obj: obj.value,
-        // });
         store.dispatch('post/' + CREATE_POST, {userId:userId, obj:obj.value});
         alert("Post created");
       } else {

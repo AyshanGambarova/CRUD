@@ -33,7 +33,6 @@ export default {
       dialog2.value = true;
       deletingUserId.value = userId;
     }
-
     async function deleteUser() {
       await axios
         .delete(
@@ -66,7 +65,6 @@ export default {
           dialog.value = false;
         });
     }
-
     function fetchUsers(query) {
       store.dispatch("user/" + FETCH_USERS, query);
     }
@@ -86,6 +84,7 @@ export default {
       fetchUsers();
     });
 
+    //Get current page number
     watch(page, () => {
       let query = { page: page.value };
       fetchUsers(query);

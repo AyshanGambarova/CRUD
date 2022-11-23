@@ -2,9 +2,9 @@ import { onMounted, computed, ref, watch } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import axios from "axios";
+
 // Components
 import SearchPost from "@/components/SearchPost/index.vue";
-
 import {
   EDIT_POST,
   FETCH_POSTS,
@@ -82,14 +82,12 @@ export default {
     });
     onMounted(() => {
       fetchUserPosts(userId);
-      // store.dispatch("getUserPosts", {
-      //   userId: userId
-      // });
     });
+
+    //Get current page number
     watch(page, () => {
       let query = { page: page.value };
       fetchUserPosts(userId, query);
-      // store.dispatch("getUserPosts", {userId:userId,query:query});
     });
 
     // #endregion

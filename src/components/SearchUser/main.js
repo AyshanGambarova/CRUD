@@ -20,7 +20,6 @@ export default {
 
     // #region Methods
     function searchUser() {
-      // store.dispatch("getUsers", obj.value);
       store.dispatch("user/" + FETCH_USERS, obj.value);
       obj.value = {
         title: "",

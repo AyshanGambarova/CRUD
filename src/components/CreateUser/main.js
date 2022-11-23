@@ -26,7 +26,6 @@ export default defineComponent({
    async function createUser() {
       const { valid } = await this.$refs.form.validate()
       if (valid) {
-        // store.dispatch("createUser", obj.value);
         store.dispatch('user/' + CREATE_USER, obj.value);
         alert('User created')
       } else {
