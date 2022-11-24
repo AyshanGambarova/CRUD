@@ -23,7 +23,7 @@
                 label="E-mail"
                 validate-on="blur"
                 required
-                 v-tolowercase
+                v-tolowercase
               >
               </v-text-field>
             </v-col>
@@ -38,15 +38,7 @@
               ></v-select>
             </v-col>
             <v-col cols="12">
-              <v-btn
-                class="ma-2"
-                outlined
-                color="indigo"
-                block
-                @click="createUser()"
-              >
-                Create</v-btn
-              >
+              <v-btn :disabled="!valid" class="ma-2" color="indigo" block @click="createUser()"> Create</v-btn>
             </v-col>
           </v-row>
         </v-form>
@@ -55,10 +47,10 @@
   </div>
 </template>
 <script>
-import script from "./main.js";
-export default script;
+import script from './main.js'
+export default script
 </script>
 
 <style scoped>
-@import "style.css";
+@import 'style.css';
 </style>

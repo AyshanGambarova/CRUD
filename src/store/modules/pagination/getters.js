@@ -1,3 +1,3 @@
 export default {
-    getPaginationOptions: (state) => state.paginationOptions
-};
+  getPaginationOptions: (state) => state.paginationOptions
+}

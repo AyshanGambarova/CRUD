@@ -1,5 +1,5 @@
-import { GET_POSTS } from "./constants";
+import {GET_POSTS} from './constants'
 
 export default {
-  [GET_POSTS]: (state) => state.userPosts,
-};
+  [GET_POSTS]: (state) => state.userPosts
+}

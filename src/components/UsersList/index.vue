@@ -19,22 +19,14 @@
               <router-link :to="`/users/${user.id}`">
                 <v-btn size="small" color="primary"> View </v-btn>
               </router-link>
-              <v-btn size="small" color="success" @click="editingUser(user)">
-                Edit
-              </v-btn>
-              <v-btn size="small" color="error" @click="deletingUser(user.id)">
-                Delete
-              </v-btn>
+              <v-btn size="small" color="success" @click="editingUser(user)"> Edit </v-btn>
+              <v-btn size="small" color="error" @click="deletingUser(user.id)"> Delete </v-btn>
             </td>
           </tr>
         </tbody>
       </v-table>
       <div class="text-center">
-        <v-pagination
-          v-model="page"
-          :length="getPaginationOptions.pages"
-          :total-visible="7"
-        ></v-pagination>
+        <v-pagination v-model="page" :length="getPaginationOptions.pages" :total-visible="7"></v-pagination>
       </div>
     </div>
     <div v-else>There isn't any user.</div>
@@ -48,24 +40,18 @@
             <v-container>
               <v-row>
                 <v-col cols="12">
-                  <v-text-field v-model="obj.name" label="Full name" required>
-                  </v-text-field>
+                  <v-text-field v-model="obj.name" label="Full name" required> </v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field v-model="obj.email" label="Email" required>
-                  </v-text-field>
+                  <v-text-field v-model="obj.email" label="Email" required> </v-text-field>
                 </v-col>
               </v-row>
             </v-container>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="green darken-1" text @click="dialog = false">
-              Close
-            </v-btn>
-            <v-btn color="green darken-1" text @click="editUser()">
-              Save
-            </v-btn>
+            <v-btn color="green darken-1" text @click="dialog = false"> Close </v-btn>
+            <v-btn color="green darken-1" text @click="editUser()"> Save </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -75,12 +61,8 @@
           <v-card-text>Are you sure to delete this user?</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="green darken-1" text @click="dialog2 = false">
-              Disagree
-            </v-btn>
-            <v-btn color="green darken-1" text @click="deleteUser()">
-              Agree
-            </v-btn>
+            <v-btn color="green darken-1" text @click="dialog2 = false"> Disagree </v-btn>
+            <v-btn color="green darken-1" text @click="deleteUser()"> Agree </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -88,10 +70,10 @@
   </div>
 </template>
 <script>
-import script from "./main.js";
-export default script;
+import script from './main.js'
+export default script
 </script>
 
 <style scoped>
-@import "style.css";
+@import 'style.css';
 </style>

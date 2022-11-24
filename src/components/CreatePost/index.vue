@@ -6,35 +6,15 @@
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-row>
             <v-col cols="12">
-              <v-text-field
-                v-model="obj.title"
-                :rules="titleRules"
-                label="Title"
-                validate-on="blur"
-                required
-              >
+              <v-text-field v-model="obj.title" :rules="titleRules" label="Title" validate-on="blur" required>
               </v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field
-                v-model="obj.body"
-                :rules="bodyRules"
-                label="Subject"
-                validate-on="blur"
-                required
-              >
+              <v-text-field v-model="obj.body" :rules="bodyRules" label="Subject" validate-on="blur" required>
               </v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-btn
-                class="ma-2"
-                outlined
-                color="indigo"
-                block
-                @click="createPost()"
-              >
-                Create</v-btn
-              >
+              <v-btn class="ma-2" outlined color="indigo" block @click="createPost()"> Create</v-btn>
             </v-col>
           </v-row>
         </v-form>
@@ -44,10 +24,10 @@
 </template>
 
 <script>
-import script from "./main.js";
-export default script;
+import script from './main.js'
+export default script
 </script>
 
 <style scoped>
-@import "style.css";
+@import 'style.css';
 </style>
