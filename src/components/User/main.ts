@@ -1,9 +1,10 @@
-import {onMounted, computed} from 'vue'
+import {onMounted, computed, defineComponent} from 'vue'
 import {useStore} from 'vuex'
 import {useRoute} from 'vue-router'
 import {GET_USER, FETCH_USER} from '@/store/modules/user/constants'
 
-export default {
+export default defineComponent({
+  name: 'ComponentUserDetail',
   setup() {
     // #region States
     const store = useStore()
@@ -27,4 +28,4 @@ export default {
       getUser
     }
   }
-}
+})
