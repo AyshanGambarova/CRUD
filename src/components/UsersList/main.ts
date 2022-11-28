@@ -1,3 +1,5 @@
+import {EnumStoreNamespace} from './../../enums/index'
+import {TUser} from '@/types/User'
 import {onMounted, computed, ref, watch} from 'vue'
 import {useStore} from 'vuex'
 import axios from 'axios'
@@ -10,22 +12,33 @@ export default {
   components: {SearchUser},
   setup() {
     // #region States
-    const store = useStore()
-    const page = ref(1)
-    const dialog = ref(false)
-    const dialog2 = ref(false)
-    const deletingUserId = ref(null)
-    const editingUserId = ref(null)
-    const obj = ref({
+    const $store = useStore()
+
+    // const page = ref(1)
+    const page = ref<number>(1)
+    // const dialog = ref(false)
+    const dialog = ref<boolean>(false)
+    // const dialog2 = ref(false)
+    const dialog2 = ref<boolean>(false)
+    // const deletingUserId = ref(null)
+    const deletingUserId = ref<number>(0)
+    // const editingUserId = ref(null)
+    const editingUserId = ref<number>(0)
+    // const obj = ref({
+    //   name: '',
+    //   email: '',
+    //   status: 'active'
+    // })
+    let obj = ref<TUser>(<TUser>{
+      id: 0,
       name: '',
       email: '',
       status: 'active'
     })
-
     // #endregion
 
     // #region Methods
-    function deletingUser(userId) {
+    function deletingUser(userId: number) {
       dialog2.value = true
       deletingUserId.value = userId
     }
@@ -41,14 +54,14 @@ export default {
           fetchUsers()
         })
     }
-    function editingUser(user) {
+    function editingUser(user: TUser) {
       dialog.value = true
       editingUserId.value = user.id
       obj.value = {...user}
     }
     function editUser() {
-      store
-        .dispatch('user/' + EDIT_USER, {
+      $store
+        .dispatch(EnumStoreNamespace.USER + '/' + EDIT_USER, {
           userId: editingUserId.value,
           obj: obj.value
         })
@@ -57,19 +70,19 @@ export default {
           dialog.value = false
         })
     }
-    function fetchUsers(query) {
-      store.dispatch('user/' + FETCH_USERS, query)
+    function fetchUsers(query?: object) {
+      $store.dispatch(EnumStoreNamespace.USER + '/' + FETCH_USERS, query)
     }
 
     // #endregion
 
     // #region Hooks
     const getPaginationOptions = computed(() => {
-      return store.getters['pagination/getPaginationOptions']
+      return $store.getters['pagination/getPaginationOptions']
     })
 
     const getUsers = computed(() => {
-      return store.getters['user/' + GET_USERS]
+      return $store.getters[EnumStoreNamespace.USER + '/' + GET_USERS]
     })
 
     onMounted(() => {

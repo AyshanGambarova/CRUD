@@ -1,3 +1,5 @@
+import {EnumStoreNamespace} from './../../enums/index'
+import {TPost} from './../../types/Post'
 import {onMounted, computed, ref, watch} from 'vue'
 import {useStore} from 'vuex'
 import {useRoute} from 'vue-router'
@@ -11,15 +13,27 @@ export default {
   components: {SearchPost},
   setup() {
     // #region States
-    const route = useRoute()
-    const store = useStore()
-    const page = ref(1)
-    let userId = route.params.id
-    const dialog = ref(false)
-    const dialog2 = ref(false)
-    const deletingPostId = ref(null)
-    const editingPostId = ref(null)
-    const obj = ref({
+    const $route = useRoute()
+    const $store = useStore()
+
+    // const page = ref(1)
+    const page = ref<number>(1)
+    // let userId = $route.params.id
+    let userId = ref<number>(Number($route.params.id))
+    // const dialog = ref(false)
+    const dialog = ref<boolean>(false)
+    // const dialog2 = ref(false)
+    const dialog2 = ref<boolean>(false)
+    // const deletingPostId = ref(null)
+    const deletingPostId = ref<number>(0)
+    // const editingPostId = ref(null)
+    const editingPostId = ref<number>(0)
+    // const obj = ref({
+    //   title: '',
+    //   body: ''
+    // })
+    let obj = ref<TPost>(<TPost>{
+      id: 0,
       title: '',
       body: ''
     })
@@ -27,7 +41,7 @@ export default {
     // #endregion
 
     // #region Methods
-    function deletingPost(postId) {
+    function deletingPost(postId: number) {
       dialog2.value = true
       deletingPostId.value = postId
     }
@@ -40,46 +54,46 @@ export default {
         })
         .then(() => {
           dialog2.value = false
-          fetchUserPosts(userId)
+          fetchUserPosts(userId.value)
         })
     }
-    function editingPost(post) {
+    function editingPost(post: TPost) {
       dialog.value = true
       editingPostId.value = post.id
       obj.value = {...post}
     }
     function editPost() {
-      store
-        .dispatch('post/' + EDIT_POST, {
+      $store
+        .dispatch(EnumStoreNamespace.POST + '/' + EDIT_POST, {
           postId: editingPostId.value,
-          obj: this.obj
+          obj: obj.value
         })
         .then(() => {
-          fetchUserPosts(userId)
+          fetchUserPosts(userId.value)
           dialog.value = false
         })
     }
-    function fetchUserPosts(userId, query) {
-      store.dispatch('post/' + FETCH_POSTS, {userId, query})
+    function fetchUserPosts(userId: number, query?: object) {
+      $store.dispatch(EnumStoreNamespace.POST + '/' + FETCH_POSTS, {userId, query})
     }
 
     // #endregion
 
     // #region Hooks
     const getPaginationOptions = computed(() => {
-      return store.getters['pagination/getPaginationOptions']
+      return $store.getters['pagination/getPaginationOptions']
     })
     const getUserPosts = computed(() => {
-      return store.getters['post/' + GET_POSTS]
+      return $store.getters[EnumStoreNamespace.POST + '/' + GET_POSTS]
     })
     onMounted(() => {
-      fetchUserPosts(userId)
+      fetchUserPosts(userId.value)
     })
 
     //Get current page number
     watch(page, () => {
       let query = {page: page.value}
-      fetchUserPosts(userId, query)
+      fetchUserPosts(userId.value, query)
     })
 
     // #endregion

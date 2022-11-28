@@ -14,6 +14,7 @@ import {TUser} from '@/types/User'
 
 export default defineComponent({
   name: 'PageUser',
+  //@ts-ignore
   components: {User, CreatePost, PostsList},
   setup() {
     const $store = useStore()

@@ -16,6 +16,7 @@ const vuetify = createVuetify({
   components,
   directives
 })
+// @ts-ignore
 const app = createApp(App)
 app.use(router)
 app.use(store)

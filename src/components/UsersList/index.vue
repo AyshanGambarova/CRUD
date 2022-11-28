@@ -69,8 +69,8 @@
     </v-row>
   </div>
 </template>
-<script>
-import script from './main.js'
+<script lang='ts'>
+import script from './main'
 export default script
 </script>
 

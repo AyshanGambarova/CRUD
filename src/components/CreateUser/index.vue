@@ -46,8 +46,8 @@
     </v-container>
   </div>
 </template>
-<script lang='ts'>
-import script from './main.ts'
+<script lang="ts">
+import script from './main'
 export default script
 </script>
 
