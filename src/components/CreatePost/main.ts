@@ -4,16 +4,13 @@ import {CREATE_POST} from '@/store/modules/post/constants'
 import {defineComponent, ref} from 'vue'
 import {useRoute} from 'vue-router'
 import {useStore} from 'vuex'
+import validations from '@/helpers/validations'
 
 export default defineComponent({
   name: 'CreatePost',
   setup() {
     // #region States
 
-    // let obj = ref({
-    //   title: '',
-    //   body: ''
-    // })
     let obj = ref<TPost>(<TPost>{
       id:0,
       title: '',
@@ -21,16 +18,11 @@ export default defineComponent({
     })
     const $store = useStore()
     const $route = useRoute()
-    // let userId = $route.params.id
     const userId = ref<number>(Number($route.params.id))
 
     //Form validation
 
-    // let valid = ref(true)
     let valid = ref<boolean>(true)
-    let titleRules = ref([(v: string) => !!v || 'Required'])
-    let bodyRules = ref([(v: string) => !!v || 'Required'])
-
     const form = ref<HTMLFormElement>(<HTMLFormElement>{})
 
     // #endregion
@@ -60,10 +52,9 @@ export default defineComponent({
     return {
       obj,
       valid,
-      titleRules,
-      bodyRules,
       createPost,
-      form
+      form,
+      validations
     }
   }
 })

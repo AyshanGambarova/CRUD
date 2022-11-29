@@ -7,8 +7,8 @@
           <v-row>
             <v-col cols="4">
               <v-text-field
-                v-model="obj.name"
-                :rules="nameRules"
+                v-model.trim="obj.name"
+                :rules="validations.required"
                 label="Full Name"
                 required
                 validate-on="blur"
@@ -18,8 +18,8 @@
             </v-col>
             <v-col cols="4">
               <v-text-field
-                :rules="emailRules"
-                v-model="obj.email"
+                :rules="[...validations.required,...validations.email]"
+                v-model.trim="obj.email"
                 label="E-mail"
                 validate-on="blur"
                 required
@@ -29,7 +29,7 @@
             </v-col>
             <v-col cols="4">
               <v-select
-                :rules="[(v) => !!v || 'Gender is required']"
+                :rules="validations.required"
                 v-model="obj.gender"
                 :items="items"
                 label="Gender"
@@ -38,11 +38,16 @@
               ></v-select>
             </v-col>
             <v-col cols="12">
-              <v-btn :disabled="!valid" class="ma-2" color="indigo" block @click="createUser()"> Create</v-btn>
+              <v-btn  :disabled="!valid" class="ma-2" color="indigo" block @click="createUser()">
+                Create</v-btn
+              >
             </v-col>
           </v-row>
         </v-form>
       </div>
+      <v-snackbar v-model="snackbar" :timeout="timeout">
+        {{ text }}
+      </v-snackbar>
     </v-container>
   </div>
 </template>

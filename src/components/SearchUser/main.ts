@@ -8,18 +8,11 @@ export default {
   setup() {
     // #region States
     const $store = useStore()
-    // let obj = ref({
-    //   name: '',
-    //   gender: '',
-    //   email: '',
-    //   status: 'active'
-    // })
     let obj = ref<TUser>(<TUser>{
       name: '',
       gender: '',
       email: '',
     })
-    // const items = ref(['male', 'female'])
     let items = ref<string[]>(['male', 'female'])
 
     // #endregion

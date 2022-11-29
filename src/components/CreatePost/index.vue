@@ -6,11 +6,11 @@
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-row>
             <v-col cols="12">
-              <v-text-field v-model="obj.title" :rules="titleRules" label="Title" validate-on="blur" v-tocapitalize>
+              <v-text-field v-model="obj.title" :rules="validations.required" label="Title" validate-on="blur" v-tocapitalize>
               </v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field v-model="obj.body" :rules="bodyRules" label="Subject" validate-on="blur" v-tocapitalize>
+              <v-text-field v-model="obj.body" :rules="validations.required" label="Subject" validate-on="blur" v-tocapitalize>
               </v-text-field>
             </v-col>
             <v-col cols="12">

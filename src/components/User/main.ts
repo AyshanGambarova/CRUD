@@ -10,8 +10,6 @@ export default defineComponent({
     // #region States
     const $store = useStore()
     const $route = useRoute()
-
-    // let userId = route.params.id
     const userId = ref<number>(Number($route.params.id))
 
     // #endregion

@@ -11,6 +11,15 @@
             <th class="text-center">Settings</th>
           </tr>
         </thead>
+        <tbody v-if="getSpinner" class="class-tbody">
+          <tr>
+            <td colspan="3">
+              <div class="text-center spinner">
+                <v-progress-circular indeterminate color="primary"></v-progress-circular>
+              </div>
+            </td>
+          </tr>
+        </tbody>
         <tbody>
           <tr v-for="user in getUsers" :key="user.id">
             <td>{{ user.id }}</td>
@@ -69,7 +78,7 @@
     </v-row>
   </div>
 </template>
-<script lang='ts'>
+<script lang="ts">
 import script from './main'
 export default script
 </script>

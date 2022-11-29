@@ -10,15 +10,10 @@ export default {
     // #region States
     const $store = useStore()
     const $route = useRoute()
-    // let obj = ref({
-    //   title: '',
-    //   body: ''
-    // })
     let obj = ref<TPost>(<TPost>{
       title: '',
       body: ''
     })
-    // let userId = route.params.id
     let userId = ref<number>(Number($route.params.id))
 
     // #endregion

@@ -1,20 +1,15 @@
 import {EnumStoreNamespace} from '@/enums'
 import {TUser} from '@/types/User'
-import {defineComponent, ref} from 'vue'
+import {defineComponent, ref, computed} from 'vue'
 import {useStore} from 'vuex'
 import {CREATE_USER} from '@/store/modules/user/constants'
+import validations from '@/helpers/validations'
 
 export default defineComponent({
   name: 'CreateUser',
   setup() {
     // #region States
     const $store = useStore()
-    // let obj = ref({
-    //   name: '',
-    //   gender: '',
-    //   email: '',
-    //   status: 'active'
-    // })
     let obj = ref<TUser>({
       id: 0,
       name: '',
@@ -22,22 +17,16 @@ export default defineComponent({
       email: '',
       status: 'active'
     })
-
-    //let items = ref(['male', 'female'])
     let items = ref<string[]>(['male', 'female'])
 
     //Form validation
-
-    // let valid = ref(true)
     let valid = ref<boolean>(true)
-
     const form = ref<HTMLFormElement>(<HTMLFormElement>{})
 
-    let nameRules = ref([(v: string) => !!v || 'Required'])
-    let emailRules = ref([
-      (v: string) => !!v || 'E-mail is required',
-      (v: string) => /.+@.+\..+/.test(v) || 'E-mail must be valid'
-    ])
+    //Snackbar
+    let snackbar = ref<boolean>(false)
+    let text = ref<string>('User added')
+    let timeout = ref<number>(2000)
 
     // #endregion
 
@@ -46,7 +35,7 @@ export default defineComponent({
       const {valid} = await form.value.validate()
       if (valid) {
         $store.dispatch(EnumStoreNamespace.USER + '/' + CREATE_USER, obj.value)
-        alert('User created')
+        snackbar.value = true
       } else {
         alert('Form is invalid')
       }
@@ -59,16 +48,23 @@ export default defineComponent({
       }
     }
 
+    const getSpinner = computed(() => {
+      return $store.getters['spinner/getSpinner']
+    })
+
     // #endregion
 
     return {
       obj,
       valid,
-      nameRules,
-      emailRules,
       items,
       createUser,
-      form
+      form,
+      snackbar,
+      text,
+      timeout,
+      getSpinner,
+      validations
     }
   }
 })

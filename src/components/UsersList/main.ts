@@ -13,22 +13,11 @@ export default {
   setup() {
     // #region States
     const $store = useStore()
-
-    // const page = ref(1)
     const page = ref<number>(1)
-    // const dialog = ref(false)
     const dialog = ref<boolean>(false)
-    // const dialog2 = ref(false)
     const dialog2 = ref<boolean>(false)
-    // const deletingUserId = ref(null)
     const deletingUserId = ref<number>(0)
-    // const editingUserId = ref(null)
     const editingUserId = ref<number>(0)
-    // const obj = ref({
-    //   name: '',
-    //   email: '',
-    //   status: 'active'
-    // })
     let obj = ref<TUser>(<TUser>{
       id: 0,
       name: '',
@@ -80,7 +69,9 @@ export default {
     const getPaginationOptions = computed(() => {
       return $store.getters['pagination/getPaginationOptions']
     })
-
+    const getSpinner = computed(() => {
+      return $store.getters['spinner/getSpinner']
+    })
     const getUsers = computed(() => {
       return $store.getters[EnumStoreNamespace.USER + '/' + GET_USERS]
     })
@@ -107,7 +98,8 @@ export default {
       editingUser,
       editUser,
       deletingUser,
-      deleteUser
+      deleteUser,
+      getSpinner
     }
   }
 }

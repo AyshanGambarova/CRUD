@@ -15,23 +15,12 @@ export default {
     // #region States
     const $route = useRoute()
     const $store = useStore()
-
-    // const page = ref(1)
     const page = ref<number>(1)
-    // let userId = $route.params.id
     let userId = ref<number>(Number($route.params.id))
-    // const dialog = ref(false)
     const dialog = ref<boolean>(false)
-    // const dialog2 = ref(false)
     const dialog2 = ref<boolean>(false)
-    // const deletingPostId = ref(null)
     const deletingPostId = ref<number>(0)
-    // const editingPostId = ref(null)
     const editingPostId = ref<number>(0)
-    // const obj = ref({
-    //   title: '',
-    //   body: ''
-    // })
     let obj = ref<TPost>(<TPost>{
       id: 0,
       title: '',

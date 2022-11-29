@@ -1,4 +1,4 @@
 export enum EnumStoreNamespace {
     USER = 'user',
-    POST = 'post'
+    POST = 'post',
 }
