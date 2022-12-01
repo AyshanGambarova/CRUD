@@ -1,4 +1,4 @@
-import { EnumStoreNamespace } from './../../enums/index';
+import {EnumStoreNamespace} from './../../enums/index'
 import {TPost} from './../../types/Post'
 import {CREATE_POST} from '@/store/modules/post/constants'
 import {defineComponent, ref} from 'vue'
@@ -12,7 +12,7 @@ export default defineComponent({
     // #region States
 
     let obj = ref<TPost>(<TPost>{
-      id:0,
+      id: 0,
       title: '',
       body: ''
     })
@@ -32,7 +32,7 @@ export default defineComponent({
     async function createPost() {
       const {valid} = await form.value.validate()
       if (valid) {
-        $store.dispatch(EnumStoreNamespace.POST+'/' + CREATE_POST, {
+        $store.dispatch(EnumStoreNamespace.POST + '/' + CREATE_POST, {
           userId: userId.value,
           obj: obj.value
         })
@@ -41,7 +41,7 @@ export default defineComponent({
         alert('Form is invalid')
       }
       obj.value = {
-        id:0,
+        id: 0,
         title: '',
         body: ''
       }

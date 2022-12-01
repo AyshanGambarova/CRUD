@@ -56,6 +56,3 @@ import script from './main'
 export default script
 </script>
 
-<style scoped>
-@import 'style.css';
-</style>

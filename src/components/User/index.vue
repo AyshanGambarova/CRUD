@@ -2,7 +2,7 @@
   <div>
     <v-container>
       <h1>User info</h1>
-      <v-table fixed-header height="300px">
+      <!-- <v-table fixed-header height="300px">
         <thead>
           <tr>
             <th>Full name</th>
@@ -17,7 +17,7 @@
             <td>{{ getUser.gender }}</td>
           </tr>
         </tbody>
-      </v-table>
+      </v-table> -->
     </v-container>
   </div>
 </template>
@@ -26,6 +26,3 @@ import script from './main'
 export default script
 </script>
 
-<style scoped>
-@import 'style.css';
-</style>

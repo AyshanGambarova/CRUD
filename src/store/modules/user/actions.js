@@ -39,10 +39,11 @@ export default {
     }
   },
   async [FETCH_USER]({commit}, userId) {
+    console.log(userId);
     try {
       const response = await $http({
         method: 'GET',
-        url: `/users/${userId}`
+        url: `/users/${userId}`,
       })
       commit(SET_USER, response.data)
     } catch (error) {

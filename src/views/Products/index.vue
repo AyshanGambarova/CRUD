@@ -1,5 +1,16 @@
 <template>
   <v-container>
+    <h1>File upload</h1>
+    <form>
+      <v-file-input v-model="files" show-size counter label="File input"></v-file-input>
+       <v-btn
+       @click="uploadFile"
+      depressed
+      color="primary"
+    >
+      Upload
+    </v-btn>
+    </form>
     <h1>Products</h1>
     <v-row class="mb-6" no-gutters style="height: 500px; overflow-y: scroll" @scroll="getProducts">
       <v-col md="3" v-for="product in products" :key="product.id">

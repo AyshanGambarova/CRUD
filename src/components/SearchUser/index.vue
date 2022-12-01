@@ -14,7 +14,7 @@
               <v-select v-model="obj.gender" :items="items" label="Gender"></v-select>
             </v-col>
             <v-col cols="3">
-              <v-btn class="ma-2" outlined color="indigo" block @click="searchUser()"> Search</v-btn>
+              <v-btn class="ma-2"  outlined color="indigo" block @click="searchUser()"> Search</v-btn>
             </v-col>
           </v-row>
         </v-form>
@@ -27,6 +27,3 @@ import script from './main'
 export default script
 </script>
 
-<style scoped>
-@import 'style.css';
-</style>

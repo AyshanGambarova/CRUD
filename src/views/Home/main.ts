@@ -5,6 +5,7 @@ import {defineComponent} from 'vue'
 
 export default defineComponent({
   name: 'PageHome',
+  //@ts-ignore
   components: {CreateUser, UsersList},
   setup() {}
 })

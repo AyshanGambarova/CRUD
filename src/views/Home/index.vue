@@ -4,7 +4,7 @@
     <UsersList />
   </v-container>
 </template>
-<script>
+<script lang='ts'>
 import script from './main'
 export default script
 </script>

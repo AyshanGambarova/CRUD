@@ -1,7 +1,7 @@
 import {EnumStoreNamespace} from './../../enums/index'
 import {onMounted, computed, defineComponent, ref} from 'vue'
 import {useStore} from 'vuex'
-import {useRoute} from 'vue-router'
+import {useRoute, useRouter} from 'vue-router'
 import {GET_USER, FETCH_USER} from '@/store/modules/user/constants'
 
 export default defineComponent({
@@ -10,6 +10,9 @@ export default defineComponent({
     // #region States
     const $store = useStore()
     const $route = useRoute()
+
+    console.log($route)
+    debugger
     const userId = ref<number>(Number($route.params.id))
 
     // #endregion
