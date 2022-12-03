@@ -1,5 +1,5 @@
-import {EnumStoreNamespace} from './../../enums/index'
-import {TPost} from './../../types/Post'
+import {EnumStoreNamespace} from '@/enums/index'
+import {TPost} from '@/types/Post'
 import {FETCH_POSTS} from '@/store/modules/post/constants'
 import {ref} from 'vue'
 import {useRoute} from 'vue-router'

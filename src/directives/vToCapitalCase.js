@@ -1,4 +1,4 @@
-export const vToCapitalize = {
+export const vToCapitalCase = {
   updated: (el) => {
     el.addEventListener('input', (e) => {
       const inputValue = e.target.value

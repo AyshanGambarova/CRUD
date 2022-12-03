@@ -5,9 +5,9 @@
       <v-table fixed-header height="300px">
         <thead>
           <tr>
-            <th>Full name</th>
-            <th>Email</th>
-            <th>Gender</th>
+            <th class="text-center">Full name</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Gender</th>
           </tr>
         </thead>
         <tbody>

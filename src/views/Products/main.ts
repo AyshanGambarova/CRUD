@@ -46,8 +46,6 @@ export default defineComponent({
     }
 
     async function uploadFile() {
-      console.log(files.value[0])
-
       let formData = new FormData()
       // // for (let file of files.value) {
       // //   formData.append('files', file)
@@ -66,6 +64,7 @@ export default defineComponent({
       } catch (error) {
         console.log(error)
       }
+      files.value=[]
     }
     function reserve() {
       loading.value = true

@@ -1,4 +1,4 @@
-import {EnumStoreNamespace} from './../../enums/index'
+import {EnumStoreNamespace} from '@/enums/index'
 import {TUser} from '@/types/User'
 import {FETCH_USERS} from '@/store/modules/user/constants'
 import {ref} from 'vue'

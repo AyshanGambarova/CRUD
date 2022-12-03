@@ -4,7 +4,7 @@
     <v-divider></v-divider>
     <v-list density="compact" nav>
       <v-list-item prepend-icon="mdi-view-dashboard">
-        <router-link to="/" class="text-decoration-none">Home</router-link>
+        <router-link to="/" class="text-decoration-none">Users</router-link>
       </v-list-item>
       <v-list-item prepend-icon="mdi-forum">
         <router-link to="/products" class="text-decoration-none">Products</router-link>

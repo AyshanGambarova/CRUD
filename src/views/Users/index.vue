@@ -1,5 +1,4 @@
 <template>
-  <Navbar />
   <CreateUser />
   <UsersList />
 </template>

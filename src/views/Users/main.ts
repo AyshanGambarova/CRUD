@@ -1,10 +1,10 @@
 // Components
-import CreateUser from '@/components/CreateUser/index.vue'
-import UsersList from '@/components/UsersList/index.vue'
 import {defineComponent} from 'vue'
+import CreateUser from './components/CreateUser/index.vue'
+import UsersList from './components/UserList/index.vue'
 
 export default defineComponent({
-  name: 'PageHome',
+  name: 'PageUsers',
   //@ts-ignore
   components: {CreateUser, UsersList},
   setup() {}

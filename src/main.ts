@@ -9,7 +9,7 @@ import {createVuetify} from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import {loadFonts} from './plugins/webfontloader'
-import {vToCapitalize} from '@/directives/vToCapitalize'
+import {vToCapitalCase} from '@/directives/vToCapitalCase'
 import {vToLowerCase} from '@/directives/vToLowerCase'
 import {vToUpperCase} from '@/directives/vToUpperCase'
 
@@ -23,7 +23,7 @@ const app = createApp(App)
 app.use(router)
 app.use(store)
 app.use(vuetify)
-app.directive('tocapitalize', vToCapitalize)
+app.directive('tocapitalize', vToCapitalCase)
 app.directive('tolowercase', vToLowerCase)
 app.directive('touppercase', vToUpperCase)
 app.mount('#app')

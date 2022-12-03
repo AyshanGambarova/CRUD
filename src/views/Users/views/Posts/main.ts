@@ -2,18 +2,17 @@ import {defineComponent, ref, watch} from 'vue'
 import {useStore} from 'vuex'
 // Store
 import {GET_USER} from '@/store/modules/user/constants'
-
 // Components
-import User from '@/components/User/index.vue'
-import CreatePost from '@/components/CreatePost/index.vue'
-import PostsList from '@/components/PostsList/index.vue'
+import User from './components/User/index.vue'
+import CreatePost from './components/CreatePost/index.vue'
+import PostsList from './components/PostList/index.vue'
 // Enums
 import {EnumStoreNamespace} from '@/enums'
 // Types
 import {TUser} from '@/types/User'
 
 export default defineComponent({
-  name: 'PageUser',
+  name: 'PagePosts',
   //@ts-ignore
   components: {User, CreatePost, PostsList},
   setup() {

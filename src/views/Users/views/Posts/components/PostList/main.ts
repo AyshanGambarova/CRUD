@@ -1,12 +1,12 @@
-import {EnumStoreNamespace} from './../../enums/index'
-import {TPost} from './../../types/Post'
+import {EnumStoreNamespace} from '@/enums/index'
+import {TPost} from '@/types/Post'
 import {onMounted, computed, ref, watch} from 'vue'
 import {useStore} from 'vuex'
 import {useRoute} from 'vue-router'
 import axios from 'axios'
 
 // Components
-import SearchPost from '@/components/SearchPost/index.vue'
+import SearchPost from './components/SearchPost/index.vue'
 import {EDIT_POST, FETCH_POSTS, GET_POSTS} from '@/store/modules/post/constants'
 
 export default {

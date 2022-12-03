@@ -1,12 +1,11 @@
-import {EnumStoreNamespace} from './../../enums/index'
+import {EnumStoreNamespace} from '@/enums/index'
 import {TUser} from '@/types/User'
+import {EDIT_USER, FETCH_USERS, GET_USERS} from '@/store/modules/user/constants'
 import {onMounted, computed, ref, watch} from 'vue'
 import {useStore} from 'vuex'
 import axios from 'axios'
 // Components
-import SearchUser from '@/components/SearchUser/index.vue'
-
-import {EDIT_USER, FETCH_USERS, GET_USERS} from '@/store/modules/user/constants'
+import SearchUser from './components/SearchUser/index.vue'
 
 export default {
   components: {SearchUser},

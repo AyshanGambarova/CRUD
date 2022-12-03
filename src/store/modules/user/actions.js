@@ -39,7 +39,6 @@ export default {
     }
   },
   async [FETCH_USER]({commit}, userId) {
-    console.log(userId);
     try {
       const response = await $http({
         method: 'GET',
