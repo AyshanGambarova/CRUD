@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <User />
-    <!-- <CreatePost />
-    <PostsList v-if="isMountedUserDetails" /> -->
+    <CreatePost />
+    <PostsList v-if="isMountedUserDetails" />
   </v-container>
 </template>
 <script lang="ts">

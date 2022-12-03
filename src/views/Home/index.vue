@@ -1,10 +1,9 @@
 <template>
-  <v-container>
-    <CreateUser />
-    <UsersList />
-  </v-container>
+  <Navbar />
+  <CreateUser />
+  <UsersList />
 </template>
-<script lang='ts'>
+<script lang="ts">
 import script from './main'
 export default script
 </script>

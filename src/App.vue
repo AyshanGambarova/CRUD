@@ -1,20 +1,21 @@
 <template>
   <v-app>
-    <nav>
-      <h1 class="bg-red-500">Navbar</h1>
-    <router-link to="/">Home</router-link> |
-    <router-link to="products">Products</router-link>
-  </nav>
-    <router-view v-slot="{Component}">
-      <transition name="slide-fade">
-        <component :is="Component" />
-      </transition>
-    </router-view>
+    <v-main>
+      <Toolbar />
+      <Sidebar />
+      <router-view v-slot="{Component}">
+        <transition name="slide-fade">
+          <component :is="Component" />
+        </transition>
+      </router-view>
+    </v-main>
   </v-app>
 </template>
 
 <script setup>
-import './assets/tailwind.css';
+// import './assets/tailwind.css';
+import Toolbar from '@/layouts/components/Toolbar/index.vue'
+import Sidebar from '@/layouts/components/Sidebar/index.vue'
 </script>
 <style>
 #app {
