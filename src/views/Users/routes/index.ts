@@ -6,7 +6,7 @@ export default [
     name: 'users',
     component: Users,
     meta: {
-      needsAuth: true
+      needsToken: true
     }
   }
 ]

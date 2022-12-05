@@ -6,7 +6,7 @@ export default [
     name: 'login',
     component: Login,
     meta: {
-      needsAuth: false
+      needsToken: false
     }
   }
 ]

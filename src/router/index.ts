@@ -9,11 +9,11 @@ import {ref} from 'vue'
 
 const routes = [...Users, ...Posts, ...Products, ...Login]
 
-let isUserLoggedIn = ref<boolean>(false)
+let haveToken = ref<boolean>(false)
 if (localStorage.getItem('token') != null) {
-  isUserLoggedIn.value = true
+  haveToken.value = true
 } else {
-  isUserLoggedIn.value = false
+  haveToken.value = false
 }
 
 const router = createRouter({
@@ -22,15 +22,29 @@ const router = createRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  console.log(to.meta.needsAuth)
-
-  if (to.meta.needsAuth && !isUserLoggedIn.value) {
-    next('login')
-  } else if (to.meta.needsAuth && isUserLoggedIn.value) {
+  console.log('from', from)
+  if ('needsToken' in to.meta && to.meta.needsToken && !haveToken.value) {
+    next('/login')
+    console.log('to', to)
+    console.log('1', 'needsToken' in to.meta) //rootun adinin duzgunluyun yoxlamaq ucun
+  } else if ('needsToken' in to.meta && !to.meta.needsToken && haveToken.value) {
+    //token var amma login registere kecmek istiyirse bu hal
     next('/')
+    console.log('2', 'needsToken' in to.meta)
+    console.log('to', to)
+  } else if (!('needsToken' in to.meta)) {
+    //duzgun olmayan root adi olduqda bu hal
+    next('/login')
   } else {
     next()
+    console.log('to', to)
+    console.log('3', 'needsToken' in to.meta)
   }
+  //Problems
+  //*****loginnen esas sehifeye kecir amma refreshden sonra
+
+  //Snackbar componenti yarat ve error message interceptorda tutub yaz
+  //searchpost duzelt
 })
 
 export default router

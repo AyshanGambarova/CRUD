@@ -34,7 +34,7 @@ export default defineComponent({
         })
         snackbar.value = true
         localStorage.setItem('token', response.data.token)
-        // $router.push({path:'/'})
+        await $router.push({path:'/'})
       } else {
         alert('Form is invalid')
       }
