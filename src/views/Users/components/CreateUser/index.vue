@@ -18,7 +18,7 @@
             </v-col>
             <v-col cols="4">
               <v-text-field
-                :rules="[...validations.required,...validations.email]"
+                :rules="[...validations.required, ...validations.email]"
                 v-model.trim="obj.email"
                 label="E-mail"
                 validate-on="blur"
@@ -38,9 +38,7 @@
               ></v-select>
             </v-col>
             <v-col cols="12">
-              <v-btn  :disabled="!valid" class="ma-2" color="indigo" block @click="createUser()">
-                Create</v-btn
-              >
+              <v-btn :disabled="!valid" class="ma-2" color="indigo" block @click="createUser()"> Create</v-btn>
             </v-col>
           </v-row>
         </v-form>
@@ -55,4 +53,3 @@
 import script from './main'
 export default script
 </script>
-

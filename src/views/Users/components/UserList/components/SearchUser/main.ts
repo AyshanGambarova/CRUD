@@ -8,11 +8,7 @@ export default {
   setup() {
     // #region States
     const $store = useStore()
-    let obj = ref<TUser>(<TUser>{
-      name: '',
-      gender: '',
-      email: '',
-    })
+    let obj = ref<TUser>(<TUser>{})
     let items = ref<string[]>(['male', 'female'])
 
     // #endregion
@@ -20,13 +16,6 @@ export default {
     // #region Methods
     function searchUser() {
       $store.dispatch(EnumStoreNamespace.USER + '/' + FETCH_USERS, obj.value)
-      obj.value = {
-        id: 0,
-        name: '',
-        gender: '',
-        email: '',
-        status: 'active'
-      }
     }
 
     // #endregion

@@ -17,11 +17,10 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   function (response) {
-
     return response
   },
   function (error) {
-    console.log(error.response.data[0].message)
+    console.log(error.response.data.message)
     return Promise.reject(error)
   }
 )

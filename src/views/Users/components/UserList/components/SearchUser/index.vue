@@ -5,7 +5,7 @@
         <v-form>
           <v-row>
             <v-col cols="3">
-              <v-text-field v-model="obj.name" label="Full Name" v-tocapitalize> </v-text-field>
+              <v-text-field v-model="obj.name" label="Full name" v-tocapitalize> </v-text-field>
             </v-col>
             <v-col cols="3">
               <v-text-field v-model="obj.email" label="E-mail" v-tolowercase> </v-text-field>

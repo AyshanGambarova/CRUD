@@ -6,8 +6,9 @@
       <v-table fixed-header height="300px">
         <thead>
           <tr>
-            <th class="text-center">ID</th>
-            <th class="text-center">Name</th>
+            <th class="text-center">Full name</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Gender</th>
             <th class="text-center">Settings</th>
           </tr>
         </thead>
@@ -22,8 +23,9 @@
         </tbody>
         <tbody>
           <tr v-for="user in getUsers" :key="user.id">
-            <td>{{ user.id }}</td>
             <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.gender }}</td>
             <td>
               <router-link :to="`/users/${user.id}`">
                 <v-btn size="small" color="primary"> View </v-btn>

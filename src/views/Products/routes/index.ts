@@ -4,6 +4,9 @@ export default [
   {
     path: '/products',
     name: 'products',
-    component: Products
+    component: Products,
+    meta: {
+      needsAuth: true
+    }
   }
 ]
