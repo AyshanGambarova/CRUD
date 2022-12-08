@@ -2,7 +2,7 @@
   <div>
     <v-container>
       <h1>Posts</h1>
-      <SearchPost />
+      <SearchPost  @submitFilter="handleSubmitFilter" />
       <div v-if="getUserPosts.length">
         <v-table fixed-header height="300px">
           <thead>

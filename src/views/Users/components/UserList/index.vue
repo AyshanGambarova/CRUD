@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Users</h1>
-    <SearchUser />
+    <SearchUser @submitFilter="handleSubmitFilter" />
     <div v-if="getUsers.length">
       <v-table fixed-header height="300px">
         <thead>

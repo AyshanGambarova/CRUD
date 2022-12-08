@@ -1,18 +1,20 @@
 import {EnumStoreNamespace} from '@/enums/index'
-import {TUser} from '@/types/User'
+import {TUser, TUserFilter} from '@/types/User'
 import {EDIT_USER, FETCH_USERS, GET_USERS} from '@/store/modules/user/constants'
 import {onMounted, computed, ref, watch} from 'vue'
 import {useStore} from 'vuex'
-import axios from 'axios'
+import $http from '@/utils/interceptors'
+import Snackbar from '@/helpers/snackbar'
 // Components
 import SearchUser from './components/SearchUser/index.vue'
+import {Action, Getter} from '@/helpers/store'
 
 export default {
   components: {SearchUser},
   setup() {
     // #region States
-    const $store = useStore()
     const page = ref<number>(1)
+    const payloadFilter = ref<TUserFilter>(<TUserFilter>{})
     const dialog = ref<boolean>(false)
     const dialog2 = ref<boolean>(false)
     const deletingUserId = ref<number>(0)
@@ -26,21 +28,35 @@ export default {
     // #endregion
 
     // #region Methods
+    const actionFetchUsers = (payload?: any) => {
+      Action({
+        namespace: EnumStoreNamespace.USER,
+        action: FETCH_USERS,
+        payload
+      })
+    }
+
     function deletingUser(userId: number) {
       dialog2.value = true
       deletingUserId.value = userId
     }
     async function deleteUser() {
-      await axios
-        .delete(`https://gorest.co.in/public/v2/users/${deletingUserId.value}`, {
-          headers: {
-            Authorization: 'Bearer edd87e7b3e90b9586dc33973743e69bf175f539b150f4322602cbbe90bb56351'
-          }
+      try {
+        const response = await $http({
+          method: 'DELETE',
+          url: `/users/${deletingUserId.value}`
         })
-        .then(() => {
-          dialog2.value = false
-          fetchUsers()
+        dialog2.value = false
+        actionFetchUsers()
+        const text = 'User deleted successfully.'
+        const color = 'success'
+        Snackbar.show({
+          text,
+          color
         })
+      } catch (error) {
+        console.log(error)
+      }
     }
     function editingUser(user: TUser) {
       dialog.value = true
@@ -48,44 +64,67 @@ export default {
       obj.value = {...user}
     }
     function editUser() {
-      $store
-        .dispatch(EnumStoreNamespace.USER + '/' + EDIT_USER, {
+      Action({
+        namespace: EnumStoreNamespace.USER,
+        action: EDIT_USER,
+        payload: {
           userId: editingUserId.value,
-          obj: obj.value
-        })
-        .then(() => {
-          fetchUsers()
-          dialog.value = false
-        })
-    }
-    function fetchUsers(query?: object) {
-      $store.dispatch(EnumStoreNamespace.USER + '/' + FETCH_USERS, query)
+          editUser: obj.value
+        }
+      })
+      dialog.value = false
+      actionFetchUsers()
     }
 
+    function handleSubmitFilter(filterPayload: any) {
+      page.value = 1
+      payloadFilter.value = {...filterPayload}
+      const paginationObj = {page: page.value}
+      actionFetchUsers({...payloadFilter.value, ...paginationObj})
+    }
     // #endregion
 
     // #region Hooks
-    const getPaginationOptions = computed(() => {
-      return $store.getters['pagination/getPaginationOptions']
-    })
-    const getSpinner = computed(() => {
-      return $store.getters['spinner/getSpinner']
-    })
-    const getUsers = computed(() => {
-      return $store.getters[EnumStoreNamespace.USER + '/' + GET_USERS]
-    })
-
     onMounted(() => {
-      fetchUsers()
-    })
-
-    //Get current page number
-    watch(page, () => {
-      let query = {page: page.value}
-      fetchUsers(query)
+      actionFetchUsers()
     })
 
     // #endregion
+
+    //#region Computed
+
+    const getPaginationOptions = computed(() => {
+      return Getter({
+        namespace: 'pagination',
+        getter: 'getPaginationOptions'
+      })
+    })
+
+    const getSpinner = computed(() => {
+      return Getter({
+        namespace: 'spinner',
+        getter: 'getSpinner'
+      })
+    })
+
+    const getUsers = computed(() => {
+      return Getter({
+        namespace: EnumStoreNamespace.USER,
+        getter: GET_USERS
+      })
+    })
+
+    //#endregion
+
+    //#region Watch
+
+    //Get current page number
+    watch(page, () => {
+      const paginationObj = {page: page.value}
+      actionFetchUsers({...payloadFilter.value, ...paginationObj})
+    })
+
+    //#endregion
 
     return {
       getUsers,
@@ -98,7 +137,8 @@ export default {
       editUser,
       deletingUser,
       deleteUser,
-      getSpinner
+      getSpinner,
+      handleSubmitFilter
     }
   }
 }

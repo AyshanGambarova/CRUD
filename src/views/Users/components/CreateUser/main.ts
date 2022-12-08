@@ -1,17 +1,15 @@
 import {EnumStoreNamespace} from '@/enums'
-import {TUser} from '@/types/User'
+import {TUserGenerel} from '@/types/User'
 import {defineComponent, ref, computed} from 'vue'
-import {useStore} from 'vuex'
 import {CREATE_USER} from '@/store/modules/user/constants'
 import validations from '@/helpers/validations'
+import {Action, Getter} from '@/helpers/store'
 
 export default defineComponent({
   name: 'CreateUser',
   setup() {
     // #region States
-    const $store = useStore()
-    let obj = ref<TUser>({
-      id: 0,
+    let creatingUser = ref<TUserGenerel>({
       name: '',
       gender: '',
       email: '',
@@ -23,24 +21,31 @@ export default defineComponent({
     let valid = ref<boolean>(true)
     const form = ref<HTMLFormElement>(<HTMLFormElement>{})
 
-    //Snackbar
-    let snackbar = ref<boolean>(false)
-    let text = ref<string>('User added')
-    let timeout = ref<number>(2000)
-
     // #endregion
 
     // #region Methods
+
+    const actionCreateUser = (payload: any) => {
+      Action({
+        namespace: EnumStoreNamespace.USER,
+        action: CREATE_USER,
+        payload
+      })
+    }
+    const getterSpinner = () => {
+      return Getter({
+        namespace: 'spinner',
+        getter: 'getSpinner'
+      })
+    }
     async function createUser() {
       const {valid} = await form.value.validate()
       if (valid) {
-        $store.dispatch(EnumStoreNamespace.USER + '/' + CREATE_USER, obj.value)
-        snackbar.value = true
+        actionCreateUser(creatingUser.value)
       } else {
         alert('Form is invalid')
       }
-      obj.value = {
-        id: 0,
+      creatingUser.value = {
         name: '',
         gender: '',
         email: '',
@@ -49,20 +54,17 @@ export default defineComponent({
     }
 
     const getSpinner = computed(() => {
-      return $store.getters['spinner/getSpinner']
+      return getterSpinner()
     })
 
     // #endregion
 
     return {
-      obj,
+      creatingUser,
       valid,
       items,
       createUser,
       form,
-      snackbar,
-      text,
-      timeout,
       getSpinner,
       validations
     }

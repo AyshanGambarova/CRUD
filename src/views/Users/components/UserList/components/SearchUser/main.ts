@@ -1,27 +1,23 @@
-import {EnumStoreNamespace} from '@/enums/index'
-import {TUser} from '@/types/User'
-import {FETCH_USERS} from '@/store/modules/user/constants'
+import {TUserFilter} from '@/types/User'
 import {ref} from 'vue'
-import {useStore} from 'vuex'
 
 export default {
-  setup() {
-    // #region States
-    const $store = useStore()
-    let obj = ref<TUser>(<TUser>{})
-    let items = ref<string[]>(['male', 'female'])
+  emits: ['submitFilter'],
+  setup(props: any, context: any) {
 
+    // #region States
+    let searchingUser = ref<TUserFilter>(<TUserFilter>{})
+    let items = ref<string[]>(['male', 'female'])
     // #endregion
 
     // #region Methods
     function searchUser() {
-      $store.dispatch(EnumStoreNamespace.USER + '/' + FETCH_USERS, obj.value)
+      context.emit('submitFilter', searchingUser.value)
     }
-
     // #endregion
 
     return {
-      obj,
+      searchingUser,
       items,
       searchUser
     }

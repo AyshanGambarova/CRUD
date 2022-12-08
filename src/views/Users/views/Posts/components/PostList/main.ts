@@ -1,21 +1,21 @@
 import {EnumStoreNamespace} from '@/enums/index'
-import {TPost} from '@/types/Post'
+import {TPost, TPostFilter} from '@/types/Post'
 import {onMounted, computed, ref, watch} from 'vue'
-import {useStore} from 'vuex'
 import {useRoute} from 'vue-router'
-import axios from 'axios'
-
+import {EDIT_POST, FETCH_POSTS, GET_POSTS} from '@/store/modules/post/constants'
+import $http from '@/utils/interceptors'
+import Snackbar from '@/helpers/snackbar'
+import {Action, Getter} from '@/helpers/store'
 // Components
 import SearchPost from './components/SearchPost/index.vue'
-import {EDIT_POST, FETCH_POSTS, GET_POSTS} from '@/store/modules/post/constants'
 
 export default {
   components: {SearchPost},
   setup() {
     // #region States
     const $route = useRoute()
-    const $store = useStore()
     const page = ref<number>(1)
+    const payloadFilter = ref<TPostFilter>(<TPostFilter>{})
     let userId = ref<number>(Number($route.params.id))
     const dialog = ref<boolean>(false)
     const dialog2 = ref<boolean>(false)
@@ -30,21 +30,34 @@ export default {
     // #endregion
 
     // #region Methods
+    const actionFetchUserPosts = (payload?: any) => {
+      Action({
+        namespace: EnumStoreNamespace.POST,
+        action: FETCH_POSTS,
+        payload
+      })
+    }
     function deletingPost(postId: number) {
       dialog2.value = true
       deletingPostId.value = postId
     }
     async function deletePost() {
-      await axios
-        .delete(`https://gorest.co.in/public/v2/posts/${deletingPostId.value}`, {
-          headers: {
-            Authorization: 'Bearer edd87e7b3e90b9586dc33973743e69bf175f539b150f4322602cbbe90bb56351'
-          }
+      try {
+        const response = await $http({
+          method: 'DELETE',
+          url: `/posts/${deletingPostId.value}`
         })
-        .then(() => {
-          dialog2.value = false
-          fetchUserPosts(userId.value)
+        dialog2.value = false
+        actionFetchUserPosts({userId: userId.value})
+        const text = 'Post deleted successfully.'
+        const color = 'success'
+        Snackbar.show({
+          text,
+          color
         })
+      } catch (error) {
+        console.log(error)
+      }
     }
     function editingPost(post: TPost) {
       dialog.value = true
@@ -52,38 +65,57 @@ export default {
       obj.value = {...post}
     }
     function editPost() {
-      $store
-        .dispatch(EnumStoreNamespace.POST + '/' + EDIT_POST, {
+      Action({
+        namespace: EnumStoreNamespace.POST,
+        action: EDIT_POST,
+        payload: {
           postId: editingPostId.value,
-          obj: obj.value
-        })
-        .then(() => {
-          fetchUserPosts(userId.value)
-          dialog.value = false
-        })
+          editPost: obj.value
+        }
+      })
+      dialog.value = false
+      actionFetchUserPosts({userId: userId.value})
     }
-    function fetchUserPosts(userId: number, query?: object) {
-      $store.dispatch(EnumStoreNamespace.POST + '/' + FETCH_POSTS, {userId, query})
+
+    function handleSubmitFilter(filterPayload: any) {
+      page.value = 1
+      payloadFilter.value = {...filterPayload}
+      const paginationObj = {page: page.value}
+      const query = {...payloadFilter.value, ...paginationObj}
+      actionFetchUserPosts({query, userId: userId.value})
     }
+    // #endregion
+
+    // #region Computed
+    const getPaginationOptions = computed(() => {
+      return Getter({
+        namespace: 'pagination',
+        getter: 'getPaginationOptions'
+      })
+    })
+    const getUserPosts = computed(() => {
+      return Getter({
+        namespace: EnumStoreNamespace.POST,
+        getter: GET_POSTS
+      })
+    })
 
     // #endregion
 
     // #region Hooks
-    const getPaginationOptions = computed(() => {
-      return $store.getters['pagination/getPaginationOptions']
-    })
-    const getUserPosts = computed(() => {
-      return $store.getters[EnumStoreNamespace.POST + '/' + GET_POSTS]
-    })
     onMounted(() => {
-      fetchUserPosts(userId.value)
+      actionFetchUserPosts({userId: userId.value})
     })
+    // #endregion
 
+    // #region Watch
     //Get current page number
     watch(page, () => {
-      let query = {page: page.value}
-      fetchUserPosts(userId.value, query)
+      const paginationObj = {page: page.value}
+      const query = {...payloadFilter.value, ...paginationObj}
+      actionFetchUserPosts({query, userId: userId.value})
     })
+    // #endregion
 
     // #endregion
 
@@ -97,7 +129,8 @@ export default {
       editingPost,
       editPost,
       deletingPost,
-      deletePost
+      deletePost,
+      handleSubmitFilter
     }
   }
 }

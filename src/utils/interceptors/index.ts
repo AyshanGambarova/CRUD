@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from '@/store'
+import Snackbar from '@/helpers/snackbar'
 
 const axiosConfig = {
   baseURL: 'https://gorest.co.in/public/v2'
@@ -8,7 +9,7 @@ const axiosConfig = {
 const instance = axios.create(axiosConfig)
 
 instance.interceptors.request.use(
-  function (config) {
+  function (config:any) {
     const isLoading=true;
     store.commit('spinner/SET_SPINNER', isLoading)
     const token = 'Bearer edd87e7b3e90b9586dc33973743e69bf175f539b150f4322602cbbe90bb56351'
@@ -33,7 +34,12 @@ instance.interceptors.response.use(
     return response
   },
   function (error) {
-    console.log(error.response.data[0].message)
+    const text: string = error.response.data.message
+    const color: string = 'red'
+    Snackbar.show({
+      text,
+      color
+    })
     return Promise.reject(error)
   }
 )

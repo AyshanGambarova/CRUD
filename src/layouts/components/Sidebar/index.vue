@@ -9,6 +9,9 @@
       <v-list-item prepend-icon="mdi-forum">
         <router-link to="/products" class="text-decoration-none">Products</router-link>
       </v-list-item>
+       <v-list-item class="text-center">
+       <v-btn size="small" color="red" @click="logout()"> Log out </v-btn>
+      </v-list-item> 
     </v-list>
   </v-navigation-drawer>
 </template>

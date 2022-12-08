@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Snackbar from '@/helpers/snackbar'
 
 const axiosConfig = {
   baseURL: 'https://dummyjson.com'
@@ -20,7 +21,12 @@ instance.interceptors.response.use(
     return response
   },
   function (error) {
-    console.log(error.response.data.message)
+    const text: string = error.response.data.message
+    const color: string = 'red'
+    Snackbar.show({
+      text,
+      color
+    })
     return Promise.reject(error)
   }
 )

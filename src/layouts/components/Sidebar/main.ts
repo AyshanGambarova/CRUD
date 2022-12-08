@@ -1,5 +1,6 @@
 import { computed, defineComponent, ref} from "vue"
 import { useStore } from "vuex"
+import {useRouter} from 'vue-router'
 
 
 export default defineComponent({
@@ -7,12 +8,18 @@ export default defineComponent({
    //@ts-ignore
   setup() {
     const $store = useStore()
+    const $router = useRouter()
     const drawer = computed(() => {
       return $store.getters['drawer/getDrawer']
     })
+    async function logout() {
+      localStorage.removeItem('token')
+      await $router.push({path:'/'})
+    }
     
     return {
-      drawer
+      drawer,
+      logout
     }
   }
 })

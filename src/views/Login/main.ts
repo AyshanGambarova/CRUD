@@ -16,10 +16,7 @@ export default defineComponent({
       password: ''
     })
     const $router = useRouter()
-    //Snackbar
-    let snackbar = ref<boolean>(false)
-    let text = ref<string>('')
-    let timeout = ref<number>(2000)
+    
     //Form validation
     let valid = ref<boolean>(true)
     const form = ref<HTMLFormElement>(<HTMLFormElement>{})
@@ -32,7 +29,6 @@ export default defineComponent({
           data: creatingUser.value,
           url: `/auth/login`
         })
-        snackbar.value = true
         localStorage.setItem('token', response.data.token)
         await $router.push({path:'/'})
       } else {
@@ -49,9 +45,6 @@ export default defineComponent({
       submitLogin,
       valid,
       form,
-      snackbar,
-      text,
-      timeout,
       validations
     }
   }

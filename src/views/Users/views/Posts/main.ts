@@ -10,6 +10,7 @@ import PostsList from './components/PostList/index.vue'
 import {EnumStoreNamespace} from '@/enums'
 // Types
 import {TUser} from '@/types/User'
+import {Getter} from '@/helpers/store'
 
 export default defineComponent({
   name: 'PagePosts',
@@ -18,11 +19,15 @@ export default defineComponent({
   setup() {
     const $store = useStore()
     let isMountedUserDetails = ref<boolean>(false)
-    const getUserDetails = () => {
-      return $store.getters[EnumStoreNamespace.USER + '/' + GET_USER]
+
+    const getterUserDetails = () => {
+      return Getter({
+        namespace: EnumStoreNamespace.USER,
+        getter: GET_USER
+      })
     }
 
-    watch(getUserDetails, (userDetails: TUser) => {
+    watch(getterUserDetails, (userDetails: TUser) => {
       isMountedUserDetails.value = !!userDetails
     })
 

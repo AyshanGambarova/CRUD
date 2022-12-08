@@ -2,7 +2,7 @@
   <v-container>
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-row align="center" justify="center">
-        <v-col cols="6">
+        <v-col cols="4">
           <v-sheet class="pa-2 ma-2">
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">

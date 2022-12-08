@@ -3,6 +3,7 @@
     <v-main>
       <Toolbar />
       <Sidebar />
+      <Snackbar />
       <router-view v-slot="{Component}">
         <transition name="slide-fade">
           <component :is="Component" />
@@ -16,6 +17,7 @@
 // import './assets/tailwind.css';
 import Toolbar from '@/layouts/components/Toolbar/index.vue'
 import Sidebar from '@/layouts/components/Sidebar/index.vue'
+import Snackbar from '@/components/Snackbar/index.vue'
 </script>
 <style>
 #app {

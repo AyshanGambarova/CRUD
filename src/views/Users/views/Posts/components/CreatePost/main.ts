@@ -1,22 +1,20 @@
 import {EnumStoreNamespace} from '@/enums/index'
-import {TPost} from '@/types/Post'
+import {TPostGenerel} from '@/types/Post'
 import {CREATE_POST} from '@/store/modules/post/constants'
 import {defineComponent, ref} from 'vue'
 import {useRoute} from 'vue-router'
-import {useStore} from 'vuex'
 import validations from '@/helpers/validations'
+import {Action} from '@/helpers/store'
 
 export default defineComponent({
   name: 'CreatePost',
   setup() {
     // #region States
 
-    let obj = ref<TPost>(<TPost>{
-      id: 0,
+    let creatingPost = ref<TPostGenerel>(<TPostGenerel>{
       title: '',
       body: ''
     })
-    const $store = useStore()
     const $route = useRoute()
     const userId = ref<number>(Number($route.params.id))
 
@@ -28,29 +26,30 @@ export default defineComponent({
     // #endregion
 
     // #region Methods
-
+    const actionCreatePost = (payload?: any) => {
+      Action({
+        namespace: EnumStoreNamespace.POST,
+        action: CREATE_POST,
+        payload
+      })
+    }
     async function createPost() {
       const {valid} = await form.value.validate()
       if (valid) {
-        $store.dispatch(EnumStoreNamespace.POST + '/' + CREATE_POST, {
-          userId: userId.value,
-          obj: obj.value
-        })
-        alert('Post created')
+        actionCreatePost({ userId: userId.value, creatingPost: creatingPost.value})
       } else {
         alert('Form is invalid')
       }
-      obj.value = {
-        id: 0,
-        title: '',
-        body: ''
-      }
+      // creatingPost.value = {
+      //   title: '',
+      //   body: ''
+      // }
     }
 
     // #endregion
 
     return {
-      obj,
+      creatingPost,
       valid,
       createPost,
       form,

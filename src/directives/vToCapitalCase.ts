@@ -1,6 +1,6 @@
 export const vToCapitalCase = {
-  updated: (el) => {
-    el.addEventListener('input', (e) => {
+  updated: (el: any) => {
+    el.addEventListener('input', (e: any) => {
       const inputValue = e.target.value
 
       //Arraya cevir
@@ -12,7 +12,7 @@ export const vToCapitalCase = {
       // }
 
       for (let wordIndex = 0; wordIndex < words.length; wordIndex++) {
-        words[wordIndex] = words[wordIndex].charAt(0).toUpperCase() + words[wordIndex].slice(1).toLowerCase();
+        words[wordIndex] = words[wordIndex].charAt(0).toUpperCase() + words[wordIndex].slice(1).toLowerCase()
       }
 
       e.target.value = words.join(' ')

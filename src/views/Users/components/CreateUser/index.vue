@@ -7,7 +7,7 @@
           <v-row>
             <v-col cols="4">
               <v-text-field
-                v-model.trim="obj.name"
+                v-model.trim="creatingUser.name"
                 :rules="validations.required"
                 label="Full Name"
                 required
@@ -19,7 +19,7 @@
             <v-col cols="4">
               <v-text-field
                 :rules="[...validations.required, ...validations.email]"
-                v-model.trim="obj.email"
+                v-model.trim="creatingUser.email"
                 label="E-mail"
                 validate-on="blur"
                 required
@@ -30,7 +30,7 @@
             <v-col cols="4">
               <v-select
                 :rules="validations.required"
-                v-model="obj.gender"
+                v-model="creatingUser.gender"
                 :items="items"
                 label="Gender"
                 validate-on="blur"
@@ -43,9 +43,6 @@
           </v-row>
         </v-form>
       </div>
-      <v-snackbar v-model="snackbar" :timeout="timeout">
-        {{ text }}
-      </v-snackbar>
     </v-container>
   </div>
 </template>
