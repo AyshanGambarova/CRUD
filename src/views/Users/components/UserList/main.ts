@@ -8,6 +8,7 @@ import Snackbar from '@/helpers/snackbar'
 // Components
 import SearchUser from './components/SearchUser/index.vue'
 import {Action, Getter} from '@/helpers/store'
+import {apiDeleteUser, apiGetUsers} from '@/apis/user'
 
 export default {
   components: {SearchUser},
@@ -42,10 +43,7 @@ export default {
     }
     async function deleteUser() {
       try {
-        const response = await $http({
-          method: 'DELETE',
-          url: `/users/${deletingUserId.value}`
-        })
+        const response = await apiDeleteUser(deletingUserId.value)
         dialog2.value = false
         actionFetchUsers()
         const text = 'User deleted successfully.'
@@ -85,8 +83,9 @@ export default {
     // #endregion
 
     // #region Hooks
-    onMounted(() => {
+    onMounted(async () => {
       actionFetchUsers()
+      // const response = await apiGetUsers()
     })
 
     // #endregion

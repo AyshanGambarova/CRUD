@@ -2,17 +2,14 @@ import axios from 'axios'
 import {FETCH_POSTS, SET_POSTS, CREATE_POST, EDIT_POST} from './constants'
 import $http from '@/utils/interceptors'
 import Snackbar from '@/helpers/snackbar'
+import {apiCreateUserPost, apiEditUserPost, apiGetUserPosts} from '@/apis/post'
 
-let text = '';
-let color='';
+let text = ''
+let color = ''
 export default {
   async [FETCH_POSTS]({commit}, {userId, query}) {
     try {
-      const response = await $http({
-        method: 'GET',
-        params: query,
-        url: `/users/${userId}/posts`
-      })
+      const response = await apiGetUserPosts({userId, query})
       commit(SET_POSTS, response.data)
     } catch (error) {
       console.log(error)
@@ -20,13 +17,9 @@ export default {
   },
   async [CREATE_POST]({commit}, {userId, creatingPost}) {
     try {
-      const response = await $http({
-        method: 'POST',
-        data: creatingPost,
-        url: `/users/${userId}/posts`
-      })
+      const response = await apiCreateUserPost(userId, creatingPost)
       text = 'Post created successfully.'
-      color='success'
+      color = 'success'
       Snackbar.show({
         text,
         color
@@ -38,13 +31,9 @@ export default {
   },
   async [EDIT_POST]({commit}, {postId, editPost}) {
     try {
-      const response = await $http({
-        method: 'PUT',
-        data: editPost,
-        url: `/posts/${postId}`
-      })
+      const response = await apiEditUserPost(postId, editPost)
       text = 'Post edited successfully.'
-      color='success'
+      color = 'success'
       Snackbar.show({
         text,
         color

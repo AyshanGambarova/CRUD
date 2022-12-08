@@ -40,10 +40,10 @@ export default defineComponent({
       } else {
         alert('Form is invalid')
       }
-      // creatingPost.value = {
-      //   title: '',
-      //   body: ''
-      // }
+      creatingPost.value = {
+        title: '',
+        body: ''
+      }
     }
 
     // #endregion

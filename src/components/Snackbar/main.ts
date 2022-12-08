@@ -15,7 +15,7 @@ export default defineComponent({
     const settings = ref<TSnackbar>({
       text: '',
       timeout: 1000,
-      color:''
+      color: ''
     })
 
     //#endregion

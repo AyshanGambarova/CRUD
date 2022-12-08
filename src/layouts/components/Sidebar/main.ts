@@ -1,11 +1,10 @@
-import { computed, defineComponent, ref} from "vue"
-import { useStore } from "vuex"
+import {computed, defineComponent, ref} from 'vue'
+import {useStore} from 'vuex'
 import {useRouter} from 'vue-router'
-
 
 export default defineComponent({
   name: 'Sidebar',
-   //@ts-ignore
+  //@ts-ignore
   setup() {
     const $store = useStore()
     const $router = useRouter()
@@ -14,9 +13,9 @@ export default defineComponent({
     })
     async function logout() {
       localStorage.removeItem('token')
-      await $router.push({path:'/'})
+      await $router.push({path: '/login'})
     }
-    
+
     return {
       drawer,
       logout

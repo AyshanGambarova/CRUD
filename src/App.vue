@@ -6,7 +6,9 @@
       <Snackbar />
       <router-view v-slot="{Component}">
         <transition name="slide-fade">
-          <component :is="Component" />
+          <div>
+            <component :is="Component" />
+          </div>
         </transition>
       </router-view>
     </v-main>
