@@ -1,18 +1,24 @@
 <template>
   <v-app>
-    <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="products">Products</router-link>
-  </nav>
-    <router-view v-slot="{Component}">
-      <transition name="slide-fade">
-        <component :is="Component" />
-      </transition>
-    </router-view>
+    <v-main>
+      <Toolbar />
+      <Sidebar />
+      <Snackbar />
+      <router-view v-slot="{Component}">
+        <transition name="slide-fade">
+          <component :is="Component" />
+        </transition>
+      </router-view>
+    </v-main>
   </v-app>
 </template>
 
-<script setup></script>
+<script setup>
+// import './assets/tailwind.css';
+import Toolbar from '@/layouts/components/Toolbar/index.vue'
+import Sidebar from '@/layouts/components/Sidebar/index.vue'
+import Snackbar from '@/components/Snackbar/index.vue'
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
